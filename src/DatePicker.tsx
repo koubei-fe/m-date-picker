@@ -93,8 +93,6 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
       });
     }
     props.onDateChange(newValue);
-
-    console.log(this.state.date);
   },
 
   getDefaultMinDate() {

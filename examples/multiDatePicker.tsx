@@ -3,6 +3,7 @@
 import 'rmc-picker/assets/index.css';
 import 'rmc-date-picker/assets/index.less';
 import DatePicker from '../src/index';
+import MultiDatePicker from '../src/MultiDatePicker';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import moment from 'moment';
@@ -41,6 +42,7 @@ class Demo extends React.Component<any, any> {
     this.state = {
       date: null,
       mode: 'datetime',
+      value: [, ]
     };
   }
 
@@ -57,33 +59,27 @@ class Demo extends React.Component<any, any> {
     });
   }
 
+  
+  onChange = (value) => {
+    console.log('onChange', value);
+    this.setState({
+      value,
+    });
+  }
+
   render() {
     const props = this.props;
     const { date, mode } = this.state;
 
     return (<div style={{ margin: '10px 30px' }}>
       <h2>date picker</h2>
-
-      <select value={this.state.mode} onChange={this.changeMode}>
-        <option>datetime</option>
-        <option>date</option>
-        <option>time</option>
-        <option>month</option>
-        <option>year</option>
-      </select>
-
       <div>
         <span>{date && format(date) || format(now)}</span>
-        <div>开始时间</div>
-        <DatePicker
-          rootNativeProps={{'data-xx': 'yy'}}
-          defaultDate={date || now}
-          mode={mode}
-          locale={props.locale}
-          maxDate={maxDate}
-          minDate={minDate}
-          onDateChange={this.onDateChange}
+        <MultiDatePicker
+          selectedValue={this.state.value}
+          onValueChange={this.onChange}
         />
+        <div>开始时间</div>
       </div>
     </div>);
   }

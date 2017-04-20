@@ -1,10 +1,17 @@
 import React from 'react';
 import Modal from 'rc-dialog';
+import IDatePickerProps from './IDatePickerProps';
 import { IPopupPickerProps } from './PopupPickerTypes';
 // import PopupMixin from './PopupPickerMixin';
 import Touchable from 'rc-touchable';
 
 function noop() {
+}
+
+export interface IPopupDatePickerProps extends IPopupPickerProps {
+  datePicker: React.ReactElement<IDatePickerProps>;
+  onChange?: (date?) => void;
+  date?: any;
 }
 
 const PopupPicker = React.createClass<IPopupPickerProps, any>({
@@ -15,13 +22,13 @@ const PopupPicker = React.createClass<IPopupPickerProps, any>({
       WrapComponent: 'span',
       onVisibleChange: noop,
       okText: 'Ok',
-      pickerValueProp: 'selectedValue',
-      pickerValueChangeProp: 'onValueChange',
+      pickerValueProp: 'date',
+      pickerValueChangeProp: 'onDateChange',
       dismissText: 'Dismiss',
       title: '',
       onOk: noop,
       onDismiss: noop,
-    };
+    } as any;
   },
 
   getInitialState() {
