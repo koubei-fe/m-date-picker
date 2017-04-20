@@ -7,6 +7,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import PopPicker from '../src/Popup';
 import DatePicker from '../src/DatePicker';
+import MultiPicker from '../src/MultiDatePicker';
 
 import moment from 'moment';
 import zhCn from '../src/locale/zh_CN';
@@ -44,11 +45,19 @@ class Demo extends React.Component<any, any> {
     super(props);
     this.state = {
       date: null,
+      startTime: null,
+      endTime: null,
     };
   }
 
   onChange = (date) => {
-    console.log('onChange', format(date));
+    const { startTime, endTime } = this.state;
+    debugger;
+    // console.log('onChange', format(startTime));
+    console.log('onChange', startTime);
+    // console.log('onChange', format(endTime));
+    console.log('onChange', endTime);
+    
     this.setState({
       date,
     });
@@ -65,7 +74,7 @@ class Demo extends React.Component<any, any> {
   render() {
     const props = this.props;
     const { date } = this.state;
-    const datePicker = (
+    /*const datePicker = (
       <DatePicker
         rootNativeProps={{'data-xx': 'yy'}}
         minDate={minDate}
@@ -74,22 +83,53 @@ class Demo extends React.Component<any, any> {
         mode={props.mode}
         locale={props.locale}
       />
-    );
-          
+    );*/
+
 // datePicker={[datePicker, datePicker]}
+// date={date}
     return (<div style={{ margin: '10px 30px' }}>
-      <h2>popup date picker</h2>
+      <h2>popup multi date picker</h2>
       <div>
         <PopPicker
-          datePicker={datePicker}
+          datePicker={<MultiPicker>
+            <DatePicker 
+              rootNativeProps={{'data-xx': 'yy'}}
+              defaultDate={now}
+              mode="datetime"
+              locale={props.locale}
+              maxDate={maxDate}
+              minDate={minDate}
+              onDateChange={(time) => {
+               console.log(time);
+               debugger;
+               this.setState({
+                 startTime: time,
+               });
+              }}
+            />
+            <DatePicker 
+              rootNativeProps={{'data-xx': 'yy'}}
+              defaultDate={now}
+              mode="datetime"
+              locale={props.locale}
+              maxDate={maxDate}
+              minDate={minDate}
+              onDateChange={(time) => {
+                console.log(time);
+                debugger;
+                this.setState({
+                 endTime: time,
+               });
+              }}
+            />
+          </MultiPicker>}
           transitionName="rmc-picker-popup-slide-fade"
           maskTransitionName="rmc-picker-popup-fade"
           title="Date picker"
-          date={date}
           onDismiss={this.onDismiss}
           onChange={this.onChange}
         >
-          <button onClick={this.show}>{date && format(date) || 'open'}</button>
+          <button onClick={this.show}>{this.state.startTime || 'open'}</button>
         </PopPicker>
       </div>
     </div>);

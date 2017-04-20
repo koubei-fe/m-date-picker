@@ -1,11 +1,27 @@
 @MDatePickerPrefixCls: rmc-date-picker;
+@multiPickerPrefixCls: rmc-multi-picker;
 .@{MDatePickerPrefixCls} {
   display: flex;
   align-items: center;
   padding: 10px 0;
 
   &-item {
+    &:last-child {
+      display: none;
+    }
     flex: 1;
+    text-align: center;
+  }
+}
+
+.@{multiPickerPrefixCls} {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  flex-direction: column;
+  &-item {
+    flex: 1;
+    width: 100%;
     text-align: center;
   }
 }

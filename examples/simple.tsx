@@ -74,6 +74,17 @@ class Demo extends React.Component<any, any> {
 
       <div>
         <span>{date && format(date) || format(now)}</span>
+        <div>开始时间</div>
+        <DatePicker
+          rootNativeProps={{'data-xx': 'yy'}}
+          defaultDate={date || now}
+          mode={mode}
+          locale={props.locale}
+          maxDate={maxDate}
+          minDate={minDate}
+          onDateChange={this.onDateChange}
+        />
+        <div>结束时间</div>
         <DatePicker
           rootNativeProps={{'data-xx': 'yy'}}
           defaultDate={date || now}
